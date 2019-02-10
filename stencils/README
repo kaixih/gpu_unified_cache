@@ -1,0 +1,21 @@
+For CUDA:
+
+Makefile: select desired source code name and compile it.
+main_1d1.cu: 1D stencil, in which each output value depends on its two neighbors.
+main_1d7.cu: 1D stencil, in which each output value depends on its 14 neighbors.
+main_2d5.cu: 2D stencil, in which each output value depends on its 4 neighbors.
+main_2d9.cu: 2D stencil, in which each output value depends on its 8 neighbors.
+
+Basically, if the output values depend on more neighbors, the effect of shfl on performance is more obvious.
+I use cudaEvent to test the performance time.
+
+For HCC:
+autorun.sh: select desired source code name and compile&run it.
+main_1d1_hc.cpp: 1D stencil, in which each output value depends on its two neighbors.
+main_1d7_hc.cpp: 1D stencil, in which each output value depends on its 14 neighbors.
+main_2d5_hc.cpp: 2D stencil, in which each output value depends on its 4 neighbors.
+main_2d9_hc.cpp: 2D stencil, in which each output value depends on its 8 neighbors.
+
+To make the performance number more stable, I run each kernel $STEP (e.g. 100) times.
+In main_1d1_hc.cpp, there are two kernels (Stencil_Hcc_Shfl_Direct & Stencil_Hcc_Shfl2_Direct) calling the amdgcn_ds_bpermute() directly. But I didn't see any performance difference compared to the version calling __shfl().
+

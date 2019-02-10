@@ -1,0 +1,22 @@
+Introduction:
+    This is HCC code for demonstrating the usage of registers as buffer in
+    stencils. Before computation, each workitem will first load the target data
+    into their own registers. Then, during the computation, each workitem will
+    fetch its neighbor data from their "friend" workitem. In this folder, we
+    have two sample codes of 2D-9points and 3D-27points. The use of registers as
+    buffer relies on the hardware-supported functionality of data permutation
+    among register files.
+
+    Author: Kaixi Hou (Kaixi.Hou@amd.com)
+
+Execution:
+    1. Choose right application in buildrun.sh
+        APP=demo3d: run the 3D-27points 
+        APP=demo2d: run the 2D-9points
+        DTYPE=float: use float data  
+        DTYPE=double: use double data 
+    2. Run the compilation and generated binary 
+        sh buildrun.sh
+    3. The performance results of GFLOPS and Throughput(GB/s) will be shown.
+
+
